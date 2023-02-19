@@ -3,3 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.items {
+  margin-bottom: 10px;
+  background-color: bisque;
+}
+
+.items h3 {
+  text-transform: capitalize;
+}
