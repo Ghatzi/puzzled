@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BASEURL } from '../config/baseUrl';
 import ViewItemAdminSection from './auth/ViewItemAdminSection';
 
@@ -36,18 +36,16 @@ const ViewItem = ({ items, setItems, users, username }) => {
           <div className="mt-4">
             <p>Dimensions: {item.dimensions}</p>
             <p>No.of pieces: {item.pieces}</p>
+            <p>Retail price: £{item.price}</p>
             <p>
               Availability:
               <span
                 className={
-                  item.availability ? 'text-green-500' : 'text-red-600'
+                  item.availability ? 'text-green-600' : 'text-red-600'
                 }
               >
                 {item.availability ? ' Available' : ' Out Of Stock'}
               </span>
-            </p>
-            <p>
-              Retail price: <span className="font-bold">£{item.price}</span>
             </p>
           </div>
 
@@ -60,7 +58,6 @@ const ViewItem = ({ items, setItems, users, username }) => {
           )}
         </article>
       )}
-      <Link to="../../items">back to full list</Link>
     </>
   );
 };

@@ -28,8 +28,9 @@ h6 {
 
 header,
 footer {
-  height: 100px;
+  min-height: 100px;
   background-color: aquamarine;
+  padding: 0 10px;
 }
 
 footer {

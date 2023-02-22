@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { FaSave } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../../components/Button';
 import { BASEURL } from '../../config/baseUrl';
 
 const EditItem = ({ items, users, username }) => {
@@ -56,8 +58,8 @@ const EditItem = ({ items, users, username }) => {
   // textarea for description
   // textfield for dimensions
   // options for no.of pieces
-  // checkbox for availability (true or false)
   // textbox for price (numbers and . only)
+  // checkbox for availability (true or false)
   // updated_date
 
   return (
@@ -83,9 +85,12 @@ const EditItem = ({ items, users, username }) => {
             onChange={e => setEditDescription(e.target.value)}
           />
 
-          <button type="button" onClick={() => handleEdit(item.id)}>
-            Update
-          </button>
+          <Button
+            buttonText="Update"
+            buttonIcon={<FaSave className="mr-1" />}
+            buttonColor="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
+            handleClick={() => handleEdit(item.id)}
+          ></Button>
         </form>
       )}
     </>
