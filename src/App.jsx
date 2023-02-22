@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
@@ -8,54 +7,50 @@ import EditItem from './features/auth/EditItem';
 import NewItem from './features/auth/NewItem';
 import ItemsList from './features/ItemsList';
 import ViewItem from './features/ViewItem';
+import useFetch from './hooks/useFetch';
 
 const App = () => {
-  const [items, setItems] = useState([]);
+  const username = 'jondoe123';
+  const url = BASEURL;
 
-  const role = 'user';
-
-  const url = `${BASEURL}/items`;
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchItem = async () => {
-      try {
-        const response = await fetch(url);
-        if (isMounted) {
-          const data = await response.json();
-          setItems(data);
-        }
-      } catch (err) {
-        console.log(`Error ${err.message}`);
-      }
-    };
-
-    fetchItem();
-
-    const cleanUp = () => (isMounted = false);
-
-    return cleanUp;
-  }, []);
+  const { data: users } = useFetch(`${url}/users`);
+  const {
+    data: items,
+    setData: setItems,
+    isLoading: itemsLoading
+  } = useFetch(`${url}/items`);
 
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-
         <Route path="items">
-          <Route index element={<ItemsList items={items} />} />
+          <Route
+            index
+            element={<ItemsList items={items} itemsLoading={itemsLoading} />}
+          />
         </Route>
-
         <Route path="item">
           <Route index element={<NewItem />} />
           <Route
             path=":id"
-            element={<ViewItem items={items} setItems={setItems} role={role} />}
+            element={
+              <ViewItem
+                items={items}
+                setItems={setItems}
+                users={users}
+                username={username}
+              />
+            }
           />
         </Route>
         <Route path="edit">
-          <Route path=":id" element={<EditItem role={role} />} />
+          <Route
+            path=":id"
+            element={
+              <EditItem items={items} users={users} username={username} />
+            }
+          />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Route>
