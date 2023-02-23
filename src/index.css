@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1 {
-  @apply text-4xl;
+  @apply text-4xl text-white;
 }
 
 h2 {
@@ -26,20 +26,38 @@ h6 {
   @apply text-sm;
 }
 
+body {
+  background: linear-gradient(#380036, #0cbaba);
+  color: #333;
+}
+
 header,
 footer {
-  min-height: 100px;
-  background-color: aquamarine;
-  padding: 0 10px;
+  min-height: 80px;
+  background-color: #f5f5f5;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 footer {
   margin-top: auto;
 }
 
+label {
+  margin: 10px 8px 2px;
+  display: inline-block;
+  color: #fff;
+}
+
+input[type='checkbox'] {
+  margin-top: 10px;
+}
+
 .items {
   margin-bottom: 10px;
-  background-color: bisque;
+  background-color: #f8f8f8;
 }
 
 .items h3 {

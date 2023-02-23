@@ -28,7 +28,7 @@ const ItemList = ({ items, itemsLoading }) => {
         </span>
       </p>
       <Link to={`../item/${item.id}`}>
-        <p className="mt-4 italic">view more details</p>
+        <p className="mt-4 italic text-right">view more details</p>
       </Link>
     </article>
   ));
@@ -39,7 +39,7 @@ const ItemList = ({ items, itemsLoading }) => {
         <p>Loading items...</p>
       ) : (
         <>
-          <h2>Items</h2>
+          <h2 className="text-white">Items</h2>
           <Search search={search} setSearch={setSearch} />
           {getAllItems}
         </>

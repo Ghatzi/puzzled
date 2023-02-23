@@ -1,7 +1,7 @@
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { BASEURL } from '../../config/baseUrl';
 import Button from '../../components/Button';
+import { BASEURL } from '../../config/baseUrl';
 
 const ViewItemAdminSection = ({ item, items, setItems }) => {
   const navigate = useNavigate();
@@ -29,14 +29,14 @@ const ViewItemAdminSection = ({ item, items, setItems }) => {
           <Button
             buttonText="Edit"
             buttonIcon={<FaEdit className="mr-1" />}
-            buttonColor="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
+            buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400 mr-3"
           ></Button>
         </Link>
 
         <Button
           buttonText="Delete"
           buttonIcon={<FaTrash className="mr-1" />}
-          buttonColor="bg-red-500 hover:bg-red-700 focus:ring-red-400"
+          buttonStyle="bg-red-500 hover:bg-red-700 focus:ring-red-400"
           handleClick={() => handleDelete(item.id)}
         ></Button>
       </div>

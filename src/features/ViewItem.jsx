@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BASEURL } from '../config/baseUrl';
 import ViewItemAdminSection from './auth/ViewItemAdminSection';
 
@@ -29,7 +29,7 @@ const ViewItem = ({ items, setItems, users, username }) => {
   return (
     <>
       {item && (
-        <article className="px-8 py-4 rounded-md bg-neutral-200">
+        <article className="mt-4 px-8 py-4 rounded-md bg-neutral-200">
           <h3 className="capitalize">{item.title}</h3>
           <p>{item.description}</p>
 
@@ -58,6 +58,9 @@ const ViewItem = ({ items, setItems, users, username }) => {
           )}
         </article>
       )}
+      <Link className="mt-4 block italic text-white" to="../../items">
+        back to items
+      </Link>
     </>
   );
 };
