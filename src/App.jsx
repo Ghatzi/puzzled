@@ -1,28 +1,32 @@
 import { Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
-import Layout from './components/Layout';
-import PageNotFound from './components/PageNotFound';
+import { Home, Layout, PageNotFound } from './components';
 import { BASEURL } from './config/baseUrl';
-import EditItem from './features/auth/EditItem';
-import NewItem from './features/auth/NewItem';
-import ItemsList from './features/ItemsList';
-import ViewItem from './features/ViewItem';
+import { EditItem, EditUser, ItemsList, UsersList, ViewItem } from './features';
 import useFetch from './hooks/useFetch';
 
 const App = () => {
   const username = 'jondoe123';
   const url = BASEURL;
 
-  const { data: users } = useFetch(`${url}/users`);
+  const {
+    data: users,
+    setData: setUsers,
+    isLoading: usersLoading
+  } = useFetch(`${url}/users`);
   const {
     data: items,
     setData: setItems,
     isLoading: itemsLoading
   } = useFetch(`${url}/items`);
 
+  const getUserById = users.find(user => user.username === username);
+
   return (
     <Routes>
-      <Route path="/" element={<Layout username={username} />}>
+      <Route
+        path="/"
+        element={<Layout getUserById={getUserById && getUserById.username} />}
+      >
         <Route index element={<Home />} />
         <Route path="items">
           <Route
@@ -30,25 +34,44 @@ const App = () => {
             element={<ItemsList items={items} itemsLoading={itemsLoading} />}
           />
         </Route>
+        <Route path="users">
+          <Route
+            index
+            element={
+              <UsersList
+                users={users}
+                setUsers={setUsers}
+                usersLoading={usersLoading}
+                getUserById={getUserById}
+              />
+            }
+          />
+        </Route>
         <Route path="item">
-          <Route index element={<NewItem />} />
           <Route
             path=":id"
             element={
               <ViewItem
                 items={items}
                 setItems={setItems}
-                users={users}
-                username={username}
+                getUserById={getUserById}
               />
             }
           />
-        </Route>
-        <Route path="edit">
           <Route
-            path=":id"
+            path="edit/:id"
+            element={<EditItem items={items} getUserById={getUserById} />}
+          />
+        </Route>
+        <Route path="user">
+          <Route
+            path="edit/:id"
             element={
-              <EditItem items={items} users={users} username={username} />
+              <EditUser
+                users={users}
+                setUsers={setUsers}
+                getUserById={getUserById}
+              />
             }
           />
         </Route>

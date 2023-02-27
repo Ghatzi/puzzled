@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BASEURL } from '../config/baseUrl';
 import ViewItemAdminSection from './auth/ViewItemAdminSection';
 
-const ViewItem = ({ items, setItems, users, username }) => {
+const ViewItem = ({ items, setItems, getUserById }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const item = items.find(item => item.id.toString() === id);
-
-  const checkUserRole = users.find(user => username === user.username);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -26,10 +25,23 @@ const ViewItem = ({ items, setItems, users, username }) => {
     fetchItems();
   }, [setItems]);
 
+  const handleDelete = async id => {
+    const url = `${BASEURL}/items/${id}`;
+
+    try {
+      await fetch(url, { method: 'DELETE' });
+      const itemsList = items.filter(item => item.id !== id);
+      setItems(itemsList);
+      navigate('/items');
+    } catch (err) {
+      console.log(`Error ${err.message}`);
+    }
+  };
+
   return (
     <>
       {item && (
-        <article className="mt-4 px-8 py-4 rounded-md bg-neutral-200">
+        <article className="items">
           <h3 className="capitalize">{item.title}</h3>
           <p>{item.description}</p>
 
@@ -49,12 +61,8 @@ const ViewItem = ({ items, setItems, users, username }) => {
             </p>
           </div>
 
-          {checkUserRole && checkUserRole.role === 'admin' && (
-            <ViewItemAdminSection
-              item={item}
-              items={items}
-              setItems={setItems}
-            />
+          {getUserById && getUserById.role === 'admin' && (
+            <ViewItemAdminSection item={item} handleDelete={handleDelete} />
           )}
         </article>
       )}

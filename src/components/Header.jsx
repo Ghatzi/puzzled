@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const Header = ({ username }) => {
+const Header = ({ getUserById }) => {
   return (
     <header>
       <Link className="italic" to="/">
         Home
       </Link>
-      <h5>Welcome back {username}</h5>
+      <h5>Welcome back {getUserById}</h5>
     </header>
   );
 };

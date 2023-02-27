@@ -1,4 +1,4 @@
-import Input from './Input';
+import { Input } from '../components';
 
 const Search = ({ search, setSearch }) => (
   <form onSubmit={e => e.preventDefault()}>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Search from '../components/Search';
+import { Button, Search } from '../components';
 
 const ItemList = ({ items, itemsLoading }) => {
   const [search, setSearch] = useState('');
@@ -10,7 +11,7 @@ const ItemList = ({ items, itemsLoading }) => {
     .sort((a, b) => a.title.localeCompare(b.title));
 
   const getAllItems = filteredItems.map(item => (
-    <article key={item.id} className="my-5 px-8 py-4 rounded-md bg-neutral-200">
+    <article key={item.id} className="items">
       <h3 className="capitalize">
         <Link to={`../item/${item.id}`}>{item.title}</Link>
       </h3>
@@ -36,12 +37,25 @@ const ItemList = ({ items, itemsLoading }) => {
   return (
     <>
       {itemsLoading ? (
-        <p>Loading items...</p>
+        <p className="text-white">Loading items...</p>
       ) : (
         <>
-          <h2 className="text-white">Items</h2>
+          <div className="flex justify-between">
+            <h2 className="text-white">Items</h2>
+            <Button
+              buttonText="Add"
+              buttonIcon={<FaPlus className="mr-1" />}
+              buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
+            ></Button>
+          </div>
           <Search search={search} setSearch={setSearch} />
-          {getAllItems}
+          {getAllItems.length === 0 ? (
+            <p className="text-white mt-3">
+              no items found, try another search
+            </p>
+          ) : (
+            getAllItems
+          )}
         </>
       )}
     </>

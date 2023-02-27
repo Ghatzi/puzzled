@@ -4,13 +4,25 @@
       "id": 1,
       "username": "jondoe123",
       "password": "!12345",
-      "role": "admin"
+      "role": "admin",
+      "created_date": "February 12, 2023 10:25:37 AM",
+      "updated_date": "February 12, 2023 10:25:37 AM"
     },
     {
       "id": 2,
       "username": "janedoe123",
       "password": "!67890",
-      "role": "user"
+      "role": "user",
+      "created_date": "February 12, 2023 10:25:37 AM",
+      "updated_date": "February 12, 2023 10:25:37 AM"
+    },
+    {
+      "id": 3,
+      "username": "ghatzi",
+      "password": "qwerty12345",
+      "role": "admin",
+      "created_date": "February 12, 2023 10:25:37 AM",
+      "updated_date": "February 12, 2023 10:25:37 AM"
     }
   ],
   "items": [
