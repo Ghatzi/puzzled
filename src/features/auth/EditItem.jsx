@@ -6,7 +6,7 @@ import { Button, Input } from '../../components';
 import { BASEURL } from '../../config/baseUrl';
 import { NUMBEROFPIECES } from '../../config/piecesObj';
 
-const EditItem = ({ items, getUserById }) => {
+const EditItem = ({ items, findUser }) => {
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editDimensions, setEditDimensions] = useState('');
@@ -20,10 +20,10 @@ const EditItem = ({ items, getUserById }) => {
   const item = items.find(item => item.id.toString() === id);
 
   useEffect(() => {
-    if (getUserById && getUserById?.role.toString() !== 'admin') {
+    if (findUser && findUser?.role.toString() !== 'admin') {
       navigate('/');
     }
-  }, [getUserById]);
+  }, [findUser]);
 
   useEffect(() => {
     if (item) {
@@ -106,6 +106,7 @@ const EditItem = ({ items, getUserById }) => {
     <>
       {item && (
         <>
+          <h2 className="text-white capitalize">Edit {item.title}</h2>
           <form onSubmit={e => e.preventDefault()}>
             <Input
               labelText="Title:"

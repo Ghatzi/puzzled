@@ -9,7 +9,11 @@ module.exports = {
         'body-gradient': 'linear-gradient(#380036, #0cbaba)'
       },
       colors: {
-        100: '#333333'
+        color: {
+          100: '#333333',
+          200: '#380036',
+          300: '#0cbaba'
+        }
       }
     }
   },

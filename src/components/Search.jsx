@@ -1,7 +1,7 @@
 import { Input } from '../components';
 
 const Search = ({ search, setSearch }) => (
-  <form onSubmit={e => e.preventDefault()}>
+  <form className="mt-0" onSubmit={e => e.preventDefault()}>
     <Input
       inputType="text"
       inputId="search"

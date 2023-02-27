@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom';
 
 const Home = () => (
   <>
-    <h1>home</h1>
-    <ul>
+    <h1>Home</h1>
+    <ul className="mt-5">
       <li>
-        <Link className="italic text-white" to="../../items">
+        <Link className="text-white" to="../../items">
           view all items
         </Link>
       </li>
       <li>
-        <Link className="italic text-white" to="../../users">
+        <Link className="text-white" to="../../users">
           view all users
         </Link>
       </li>

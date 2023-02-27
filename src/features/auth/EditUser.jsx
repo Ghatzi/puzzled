@@ -6,7 +6,7 @@ import { Button, Input } from '../../components';
 import { BASEURL } from '../../config/baseUrl';
 import { ROLES } from '../../config/rolesObj';
 
-const EditUser = ({ users, setUsers, getUserById }) => {
+const EditUser = ({ users, setUsers, findUser }) => {
   const [editUsername, setEditUsername] = useState('');
   const [editPassword, setEditPassword] = useState('');
   const [editRole, setEditRole] = useState('');
@@ -17,10 +17,10 @@ const EditUser = ({ users, setUsers, getUserById }) => {
   const user = users.find(user => user.id.toString() === id);
 
   useEffect(() => {
-    if (getUserById && getUserById?.role.toString() !== 'admin') {
+    if (findUser && findUser?.role.toString() !== 'admin') {
       navigate('/');
     }
-  }, [getUserById]);
+  }, [findUser]);
 
   useEffect(() => {
     if (user) {
@@ -87,49 +87,52 @@ const EditUser = ({ users, setUsers, getUserById }) => {
   return (
     <>
       {user && (
-        <form onSubmit={e => e.preventDefault()}>
-          <Input
-            labelText="Username:"
-            inputType="text"
-            inputId="username"
-            inputValue={editUsername}
-            handleChange={e => setEditUsername(e.target.value)}
-          />
+        <>
+          <h2 className="text-white capitalize">Edit {user.username}</h2>
+          <form onSubmit={e => e.preventDefault()}>
+            <Input
+              labelText="Username:"
+              inputType="text"
+              inputId="username"
+              inputValue={editUsername}
+              handleChange={e => setEditUsername(e.target.value)}
+            />
 
-          <Input
-            labelText="Password:"
-            inputType="password"
-            inputId="password"
-            inputValue={editPassword}
-            handleChange={e => setEditPassword(e.target.value)}
-          />
+            <Input
+              labelText="Password:"
+              inputType="password"
+              inputId="password"
+              inputValue={editPassword}
+              handleChange={e => setEditPassword(e.target.value)}
+            />
 
-          <label htmlFor="roles">Roles:</label>
-          <select
-            id="roles"
-            value={editRole}
-            onChange={e => setEditRole(e.target.value)}
-          >
-            {options}
-          </select>
+            <label htmlFor="roles">Role:</label>
+            <select
+              id="roles"
+              value={editRole}
+              onChange={e => setEditRole(e.target.value)}
+            >
+              {options}
+            </select>
 
-          <div className="mt-5 flex justify-end items-center">
-            <Button
-              buttonText="Update"
-              buttonIcon={<FaSave className="mr-1" />}
-              buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400 mr-3"
-              handleClick={() => handleEdit(user.id)}
-              buttonDisabled={!canSave}
-            ></Button>
+            <div className="mt-5 flex justify-end items-center">
+              <Button
+                buttonText="Update"
+                buttonIcon={<FaSave className="mr-1" />}
+                buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400 mr-3"
+                handleClick={() => handleEdit(user.id)}
+                buttonDisabled={!canSave}
+              ></Button>
 
-            <Button
-              buttonText="Delete"
-              buttonIcon={<FaTrash className="mr-1" />}
-              buttonStyle="bg-red-500 hover:bg-red-700 focus:ring-red-400"
-              handleClick={() => handleDelete(user.id)}
-            ></Button>
-          </div>
-        </form>
+              <Button
+                buttonText="Delete"
+                buttonIcon={<FaTrash className="mr-1" />}
+                buttonStyle="bg-red-500 hover:bg-red-700 focus:ring-red-400"
+                handleClick={() => handleDelete(user.id)}
+              ></Button>
+            </div>
+          </form>
+        </>
       )}
       <Link className="mt-4 block italic text-white" to="../../users">
         back to users

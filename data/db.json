@@ -20,9 +20,9 @@
       "id": 3,
       "username": "ghatzi",
       "password": "qwerty12345",
-      "role": "admin",
+      "role": "user",
       "created_date": "February 12, 2023 10:25:37 AM",
-      "updated_date": "February 12, 2023 10:25:37 AM"
+      "updated_date": "February 27, 2023 3:13:23 PM"
     }
   ],
   "items": [
@@ -57,7 +57,7 @@
       "availability": true,
       "price": 19.99,
       "created_date": "February 12, 2023 10:25:37 AM",
-      "updated_date": "February 23, 2023 12:02:09 PM"
+      "updated_date": "February 27, 2023 3:14:06 PM"
     },
     {
       "id": 103,

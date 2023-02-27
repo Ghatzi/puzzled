@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components';
 import { BASEURL } from '../config/baseUrl';
 
-const UsersList = ({ users, setUsers, usersLoading, getUserById }) => {
+const UsersList = ({ users, setUsers, usersLoading, findUser }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       const url = `${BASEURL}/users`;
@@ -26,8 +26,8 @@ const UsersList = ({ users, setUsers, usersLoading, getUserById }) => {
     users.map(user => (
       <li className="flex items-center" key={user.id}>
         {user.username}
-        {getUserById && getUserById.role === 'admin' && (
-          <Link to={`../user/edit/${user.id}`}>
+        {findUser && findUser.role === 'admin' && (
+          <Link to={`../user/edit/${user.id}`} className="text-red-400">
             <FaEdit className="ml-3" />
           </Link>
         )}
@@ -42,11 +42,15 @@ const UsersList = ({ users, setUsers, usersLoading, getUserById }) => {
         <>
           <div className="flex justify-between">
             <h2 className="text-white">Users</h2>
-            <Button
-              buttonText="Add"
-              buttonIcon={<FaPlus className="mr-1" />}
-              buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
-            ></Button>
+            {findUser && findUser.role === 'admin' && (
+              <Link to="add">
+                <Button
+                  buttonText="Add User"
+                  buttonIcon={<FaPlus className="mr-1" />}
+                  buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
+                ></Button>
+              </Link>
+            )}
           </div>
           <ul className="users">{getAllUsers}</ul>
         </>

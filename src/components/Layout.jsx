@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { Footer, Header } from '../components';
 
-const Layout = ({ getUserById }) => (
+const Layout = ({ findUser }) => (
   <div className="flex flex-col min-h-screen">
-    <Header getUserById={getUserById} />
-    <main className="mx-52 my-5">
+    <Header findUser={findUser} />
+    <main className="mx-52 my-20">
       <Outlet />
     </main>
     <Footer />

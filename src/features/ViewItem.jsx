@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BASEURL } from '../config/baseUrl';
 import ViewItemAdminSection from './auth/ViewItemAdminSection';
 
-const ViewItem = ({ items, setItems, getUserById }) => {
+const ViewItem = ({ items, setItems, findUser }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -41,30 +41,32 @@ const ViewItem = ({ items, setItems, getUserById }) => {
   return (
     <>
       {item && (
-        <article className="items">
-          <h3 className="capitalize">{item.title}</h3>
-          <p>{item.description}</p>
+        <>
+          <h2 className="capitalize text-white">{item.title}</h2>
+          <article className="items">
+            <p>{item.description}</p>
 
-          <div className="mt-4">
-            <p>Dimensions: {item.dimensions}</p>
-            <p>No.of pieces: {item.pieces}</p>
-            <p>Retail price: £{item.price}</p>
-            <p>
-              Availability:
-              <span
-                className={
-                  item.availability ? 'text-green-600' : 'text-red-600'
-                }
-              >
-                {item.availability ? ' Available' : ' Out Of Stock'}
-              </span>
-            </p>
-          </div>
+            <div className="mt-4">
+              <p>Dimensions: {item.dimensions}</p>
+              <p>No.of pieces: {item.pieces}</p>
+              <p>Retail price: £{item.price}</p>
+              <p>
+                Availability:
+                <span
+                  className={
+                    item.availability ? 'text-green-600' : 'text-red-600'
+                  }
+                >
+                  {item.availability ? ' Available' : ' Out Of Stock'}
+                </span>
+              </p>
+            </div>
 
-          {getUserById && getUserById.role === 'admin' && (
-            <ViewItemAdminSection item={item} handleDelete={handleDelete} />
-          )}
-        </article>
+            {findUser && findUser.role === 'admin' && (
+              <ViewItemAdminSection item={item} handleDelete={handleDelete} />
+            )}
+          </article>
+        </>
       )}
       <Link className="mt-4 block italic text-white" to="../../items">
         back to items

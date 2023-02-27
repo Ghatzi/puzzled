@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Button, Search } from '../components';
 
-const ItemList = ({ items, itemsLoading }) => {
+const ItemList = ({ items, itemsLoading, findUser }) => {
   const [search, setSearch] = useState('');
 
   const filteredItems = items
@@ -28,9 +28,11 @@ const ItemList = ({ items, itemsLoading }) => {
           {item.availability ? ' Available' : ' Out Of Stock'}
         </span>
       </p>
-      <Link to={`../item/${item.id}`}>
-        <p className="mt-4 italic text-right">view more details</p>
-      </Link>
+      {findUser && findUser.role === 'admin' && (
+        <Link to={`../item/${item.id}`}>
+          <p className="mt-4 italic text-right">view more details</p>
+        </Link>
+      )}
     </article>
   ));
 
@@ -42,11 +44,15 @@ const ItemList = ({ items, itemsLoading }) => {
         <>
           <div className="flex justify-between">
             <h2 className="text-white">Items</h2>
-            <Button
-              buttonText="Add"
-              buttonIcon={<FaPlus className="mr-1" />}
-              buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
-            ></Button>
+            {findUser && findUser.role === 'admin' && (
+              <Link to="add">
+                <Button
+                  buttonText="Add Item"
+                  buttonIcon={<FaPlus className="mr-1" />}
+                  buttonStyle="bg-blue-500 hover:bg-blue-700 focus:ring-blue-400"
+                ></Button>
+              </Link>
+            )}
           </div>
           <Search search={search} setSearch={setSearch} />
           {getAllItems.length === 0 ? (
