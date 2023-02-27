@@ -1,10 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Button, Search } from '../components';
+import { BASEURL } from '../config/baseUrl';
 
-const ItemList = ({ items, itemsLoading, findUser }) => {
+const ItemList = ({ items, setItems, itemsLoading, findUser }) => {
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const url = `${BASEURL}/items`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        setItems(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchItems();
+  }, [setItems]);
 
   const filteredItems = items
     .filter(item => item.title.toLowerCase().includes(search.toLowerCase()))

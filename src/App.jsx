@@ -42,12 +42,21 @@ const App = () => {
             element={
               <ItemsList
                 items={items}
+                setItems={setItems}
                 itemsLoading={itemsLoading}
                 findUser={findUser}
               />
             }
           />
-          <Route path="add" element={<NewItem />} />
+          <Route
+            path="add"
+            element={
+              <NewItem
+                findUser={findUser}
+                itemsCount={items.length ? items[items.length - 1].id + 1 : 1}
+              />
+            }
+          />
         </Route>
         <Route path="users">
           <Route

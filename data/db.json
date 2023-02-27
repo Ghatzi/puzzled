@@ -23,6 +23,14 @@
       "role": "user",
       "created_date": "February 12, 2023 10:25:37 AM",
       "updated_date": "February 27, 2023 3:13:23 PM"
+    },
+    {
+      "id": 4,
+      "username": "newUser",
+      "password": "123user",
+      "role": "admin",
+      "created_date": "February 27, 2023 5:34:32 PM",
+      "updated_date": "February 27, 2023 5:34:32 PM"
     }
   ],
   "items": [

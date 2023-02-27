@@ -35,9 +35,9 @@ const NewUser = ({ usersCount, findUser }) => {
 
     const createUser = {
       id: usersCount,
-      username: username,
-      password: password,
-      role: role,
+      username,
+      password,
+      role,
       created_date: datetime,
       updated_date: datetime
     };

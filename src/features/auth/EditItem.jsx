@@ -10,7 +10,7 @@ const EditItem = ({ items, findUser }) => {
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editDimensions, setEditDimensions] = useState('');
-  const [editPieces, setEditPieces] = useState(0);
+  const [editPieces, setEditPieces] = useState(500);
   const [editPrice, setEditPrice] = useState(0);
   const [editAvailability, setEditAvailability] = useState(false);
 
@@ -156,7 +156,7 @@ const EditItem = ({ items, findUser }) => {
                 labelText="Availability:"
                 inputType="checkbox"
                 inputId="availability"
-                inputValue={editPrice}
+                inputValue={editAvailability}
                 inputChecked={editAvailability}
                 handleChange={handleChange}
               />
