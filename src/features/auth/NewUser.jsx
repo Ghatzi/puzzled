@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaSave } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Input } from '../../components';
@@ -14,6 +14,7 @@ const NewUser = ({ usersCount, findUser }) => {
   const [errorMsg, setErrorMsg] = useState(false);
 
   const navigate = useNavigate();
+  const errRef = useRef(null);
 
   useEffect(() => {
     if (findUser && findUser?.role.toString() !== 'admin') {
@@ -21,13 +22,9 @@ const NewUser = ({ usersCount, findUser }) => {
     }
   }, [findUser]);
 
-  const options = Object.values(ROLES).map(roles => {
-    return (
-      <option key={roles} value={roles}>
-        {roles}
-      </option>
-    );
-  });
+  useEffect(() => {
+    setErrorMsg(false);
+  }, [confirmPassword]);
 
   const handleCreate = async () => {
     const url = `${BASEURL}/users`;
@@ -52,6 +49,7 @@ const NewUser = ({ usersCount, findUser }) => {
 
     if (password !== confirmPassword) {
       setErrorMsg(true);
+      errRef.current?.focus();
     } else {
       try {
         await fetch(url, createOptions)
@@ -64,6 +62,14 @@ const NewUser = ({ usersCount, findUser }) => {
       }
     }
   };
+
+  const options = Object.values(ROLES).map(roles => {
+    return (
+      <option key={roles} value={roles}>
+        {roles}
+      </option>
+    );
+  });
 
   const canSave = username || password;
 
@@ -78,7 +84,6 @@ const NewUser = ({ usersCount, findUser }) => {
           inputValue={username}
           handleChange={e => setUsername(e.target.value)}
         />
-
         <Input
           labelText="Password:"
           inputType="text"
@@ -93,15 +98,15 @@ const NewUser = ({ usersCount, findUser }) => {
           inputId="confirmPassword"
           inputValue={confirmPassword}
           handleChange={e => setConfirmPassword(e.target.value)}
+          inputRef={errRef}
         />
-
-        <p className="text-red-600">{errorMsg && 'passwords do not match'}</p>
-
+        <p className="text-red-600" aria-live="assertive">
+          {errorMsg && 'passwords do not match'}
+        </p>
         <label htmlFor="roles">Role:</label>
         <select id="roles" value={role} onChange={e => setRole(e.target.value)}>
           {options}
         </select>
-
         <div className="flex justify-end mt-5">
           <Button
             buttonText="Create"

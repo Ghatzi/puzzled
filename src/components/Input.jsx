@@ -7,7 +7,8 @@ const Input = ({
   inputValue,
   handleChange,
   inputKeyPress,
-  inputChecked
+  inputChecked,
+  inputRef
 }) => {
   const setStyle =
     inputType === 'text' || inputType === 'number' || inputType === 'password'
@@ -29,6 +30,7 @@ const Input = ({
         onChange={handleChange}
         onKeyUp={inputKeyPress}
         checked={inputChecked}
+        ref={inputRef}
       />
     </>
   );

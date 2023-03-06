@@ -29,6 +29,8 @@ const App = () => {
 
   const findUser = users.find(user => user.username === username);
 
+  localStorage.setItem('user', JSON.stringify(findUser));
+
   return (
     <Routes>
       <Route
